@@ -53,4 +53,53 @@ class MarketDataAnalyzer:
         plt.show()
         
         
+class MovingAverageStrategy:
+    
+    def __init__(self, market_data_analyzer, short_window, long_window):
+        self.market_data_analyzer = market_data_analyzer
+        self.short_window = short_window
+        self.long_window = long_window
+
+    def generate_signals(self):
+        data = self.market_data_analyzer.market_data.get_data()
+        short_ma = self.market_data_analyzer.calculate_moving_average(self.short_window)
+        long_ma = self.market_data_analyzer.calculate_moving_average(self.long_window)
+
+        singals = [0]
+        
+        for spot in range[1, len(short_ma)]:
+            if short_ma[spot] > long_ma[spot] and short_ma[spot - 1] <= long_ma[spot - 1]:
+                singals.append(1)  # Buy signal
+            elif short_ma[spot] < long_ma[spot] and short_ma[spot - 1] >= long_ma[spot - 1]:
+                singals.append(0)  # Sell signal
+            else:
+                singals.append(singals[-1])  # Hold signal
+        return np.array(singals)
+
+    def plot_signals(self):
+        data = self.market_data_analyzer.market_data.get_data()
+        signals = self.generate_signals()
+        
+        plt.figure(figsize=(10, 5))
+        plt.plot(data['Close'], label=f'{self.market_data_analyzer.market_data.ticker} Close Price')
+        plt.plot(self.market_data_analyzer.calculate_moving_average(self.short_window), label=f'{self.short_window}-Day Moving Average', color='orange')
+        plt.plot(self.market_data_analyzer.calculate_moving_average(self.long_window), label=f'{self.long_window}-Day Moving Average', color='green')
+        
+        buy_signals = np.where(signals == 1)[0]
+        sell_signals = np.where(signals == 0)[0]
+        
+        plt.scatter(data.index[buy_signals], data['Close'].iloc[buy_signals], marker='^', color='g', label='Buy Signal', alpha=1)
+        plt.scatter(data.index[sell_signals], data['Close'].iloc[sell_signals], marker='v', color='r', label='Sell Signal', alpha=1)
+        
+        plt.title(f'{self.market_data_analyzer.market_data.ticker} Trading Signals')
+        plt.xlabel('Date')
+        plt.ylabel('Price')
+        plt.legend()
+        plt.grid()
+        plt.show()
+        
+        
+
+        
+        
         
