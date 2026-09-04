@@ -98,8 +98,5 @@ class MovingAverageStrategy:
         plt.grid()
         plt.show()
         
-        
-
-        
-        
-        
+    
+    

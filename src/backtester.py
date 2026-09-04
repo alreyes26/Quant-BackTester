@@ -1,4 +1,5 @@
 class Backtester:
+    
     def __init__(self, market_data, strategy):
         self.market_data = market_data
         self.strategy = strategy
@@ -23,6 +24,11 @@ class Backtester:
             self.portfolio_value = self.cash + (self.shares * data['Close'].iloc[i])
         
         return self.portfolio_value
+    
+    
+    
+    
+    
     
     
     backtester = Backtester(market_data, strategy, 10000)
