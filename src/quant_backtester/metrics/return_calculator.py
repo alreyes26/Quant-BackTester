@@ -1,5 +1,5 @@
 
-// function that accepts two prices:
+# function that accepts two prices:
 
 
 def calculate_return(current_price: float, previous_price: float) -> float:
