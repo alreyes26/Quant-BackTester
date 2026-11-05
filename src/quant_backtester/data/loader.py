@@ -1,12 +1,11 @@
 import pandas as pd
+import yfinance as yf
 
 
-def load_csv(file_path: str, date_column: str, price_column: str) -> pd.Series:
+def load_price_data(ticker, start_date, end_date):
 
-    data = pd.read_csv(file_path)
-    data = data[[date_column, price_column]]
-    data[date_column] = pd.to_datetime(data[date_column])
+yf.download(
 
-    prices = data.set_index(date_column)[price_column]
-
-    return prices
+    ticker, start=start_date, end=end_date
+    
+)
