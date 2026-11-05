@@ -2,6 +2,7 @@
 import pandas as pd
 import yfinance as yf
 
+from quant_backtester.stress_testing.scenarios import HISTORICAL_SCENARIOS
 
 def load_price_data(ticker, start_date, end_date):
     data = yf.download(
@@ -33,3 +34,4 @@ def load_price_data(ticker, start_date, end_date):
 if __name__ == "__main__":
     data = load_price_data("SPY", "2020-01-01", "2020-12-31")
     print(data)
+    
