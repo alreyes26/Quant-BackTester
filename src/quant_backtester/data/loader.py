@@ -31,7 +31,26 @@ def load_price_data(ticker, start_date, end_date):
     return data
 
 
+
+def load_scenario(scenario_name, ticker="SPY"):
+    if scenario_name not in HISTORICAL_SCENARIOS:
+        raise ValueError(f"Unknown scenario: {scenario_name}")
+
+    scenario = HISTORICAL_SCENARIOS[scenario_name]
+
+    data = load_price_data(
+        ticker,
+        scenario["download_start"],
+        scenario["download_end"]
+    )
+
+    return data
+
+
+
+
 if __name__ == "__main__":
-    data = load_price_data("SPY", "2020-01-01", "2020-12-31")
+    data = load_scenario("financial_crisis_2008")
     print(data)
+
     
