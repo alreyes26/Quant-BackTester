@@ -7,3 +7,6 @@ def run_backtest(prices, signals, initial_cash=10000):
     pass
 
 daily_returns = prices.pct_change()
+
+
+positions = signals.shift(1)
